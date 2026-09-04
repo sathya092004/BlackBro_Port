@@ -5,7 +5,7 @@
  */
 export function formatPrice(
   amount: number,
-  currency: string = "USD",
+  currency: string = "INR",
   locale: string = "en-US"
 ): string {
   return new Intl.NumberFormat(locale, {

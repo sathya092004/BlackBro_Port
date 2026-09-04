@@ -87,7 +87,7 @@ function makeProduct(spec: ProductSpec): Product {
     gender: spec.gender,
     price: {
       amount: spec.price,
-      currency: "USD",
+      currency: "INR",
       compareAtAmount: spec.compareAt,
     },
     images,
@@ -738,7 +738,7 @@ export const products: Product[] = [
     description:
       "A structured double-breasted overcoat cut from heavyweight Italian wool.",
     category: "outerwear",
-    price: { amount: 890, currency: "USD" },
+    price: { amount: 890, currency: "INR" },
     images: [
       {
         id: "img-001-a",
@@ -808,7 +808,7 @@ export const products: Product[] = [
     description:
       "Full-grain leather tote with an internal structured frame and brushed hardware.",
     category: "bags",
-    price: { amount: 1240, currency: "USD", compareAtAmount: 1480 },
+    price: { amount: 1240, currency: "INR", compareAtAmount: 1480 },
     images: [
       {
         id: "img-003-a",

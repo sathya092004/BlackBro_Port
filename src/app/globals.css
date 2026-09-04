@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   BLACK BRO — DESIGN SYSTEM
+   Global tokens: color, type, spacing, motion timing.
+   Edit values here only — components should never hardcode raw colors.
+   ========================================================================== */
+
+:root {
+  /* ---- Core palette (light) ---- */
+  --bb-ink: #0a0a0a;          /* primary text / near-black */
+  --bb-void: #000000;         /* true black surfaces */
+  --bb-paper: #ffffff;        /* base surface */
+  --bb-bone: #f4f2ee;         /* warm off-white surface */
+  --bb-fog: #e7e4de;          /* subtle borders / dividers on light */
+  --bb-stone: #8c8880;        /* muted secondary text */
+  --bb-graphite: #1d1d1b;     /* dark surface, softer than void */
+
+  /* ---- Accent (used sparingly) ---- */
+  --bb-gold: #b8935a;         /* editorial accent, prices, highlights */
+  --bb-signal: #c1392b;       /* sale / alert accent */
+
+  /* ---- Semantic aliases ---- */
+  --background: var(--bb-paper);
+  --foreground: var(--bb-ink);
+  --surface-muted: var(--bb-bone);
+  --border-subtle: var(--bb-fog);
+  --text-muted: var(--bb-stone);
+
+  /* ---- Layout ---- */
+  --bb-header-height: 4.5rem;
+  --bb-header-height-scrolled: 3.75rem;
+  --bb-side-nav-width: 22rem;
+  --bb-container-max: 90rem; /* 1440px */
+  --bb-gutter: 1.25rem;
+  --bb-rail-width: 4.5rem;         /* collapsed desktop left-nav rail (72px) */
+  --bb-rail-width-expanded: 21rem; /* rail width on hover expansion (336px) */
+
+  /* ---- Motion timing (shared with lib/animations) ---- */
+  --bb-ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --bb-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --bb-duration-fast: 0.2s;
+  --bb-duration-base: 0.45s;
+  --bb-duration-slow: 0.8s;
+}
+
+.dark {
+  --background: var(--bb-void);
+  --foreground: var(--bb-bone);
+  --surface-muted: var(--bb-graphite);
+  --border-subtle: #2a2a28;
+  --text-muted: #9a968d;
+}
+
+@theme inline {
+  /* Colors exposed as Tailwind utilities: bg-ink, text-bone, border-fog, etc. */
+  --color-ink: var(--bb-ink);
+  --color-void: var(--bb-void);
+  --color-paper: var(--bb-paper);
+  --color-bone: var(--bb-bone);
+  --color-fog: var(--bb-fog);
+  --color-stone: var(--bb-stone);
+  --color-graphite: var(--bb-graphite);
+  --color-gold: var(--bb-gold);
+  --color-signal: var(--bb-signal);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-subtle: var(--border-subtle);
+  --color-text-muted: var(--text-muted);
+
+  /* Typography */
+  --font-display: var(--font-bb-display);
+  --font-sans: var(--font-bb-sans);
+  --font-mono: var(--font-bb-mono);
+
+  /* Layout tokens as Tailwind vars (spacing / sizing utilities) */
+  --spacing-gutter: var(--bb-gutter);
+  --width-side-nav: var(--bb-side-nav-width);
+  --container-bb: var(--bb-container-max);
+
+  /* Custom easing exposed for arbitrary-value utilities: ease-[--ease-editorial] */
+  --ease-editorial: var(--bb-ease-editorial);
+  --ease-standard: var(--bb-ease-standard);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: var(--bb-void);
+    --foreground: var(--bb-bone);
+    --surface-muted: var(--bb-graphite);
+    --border-subtle: #2a2a28;
+    --text-muted: #9a968d;
+  }
+}
+
+* {
+  border-color: var(--border-subtle);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-bb-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Typography primitives ---- */
+h1, h2, h3, h4 {
+  font-family: var(--font-bb-display), var(--font-bb-sans), serif;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.bb-eyebrow {
+  font-family: var(--font-bb-sans), sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.bb-hairline {
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+/* ---- Scrollbar (editorial, unobtrusive) ---- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 999px;
+}
+
+/* ---- Utility: lock scroll when overlays (side nav, cart) are open ---- */
+.bb-scroll-lock {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+/* ---- Utility: fine grain texture layered over homepage media frames ---- */
+.bb-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ---- Focus ring (accessible, on-brand) ---- */
+:focus-visible {
+  outline: 1.5px solid var(--bb-ink);
+  outline-offset: 3px;
+}
+.dark :focus-visible {
+  outline-color: var(--bb-bone);
+}
+
+/* ---- Reduced motion ----
+   Framer Motion's MotionConfig(reducedMotion="user") — set globally in
+   app/layout.tsx — already handles every motion.* element. This block
+   catches everything Framer doesn't touch: plain Tailwind
+   `transition-*`/`hover:scale-*` utilities (product image zoom, icon
+   hovers), `scroll-behavior: smooth`, and any CSS @keyframes. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
